@@ -1,4 +1,4 @@
-package service;
+package example.service;
 
 import org.flowable.engine.delegate.DelegateExecution;
 import org.flowable.engine.delegate.JavaDelegate;

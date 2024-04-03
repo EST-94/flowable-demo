@@ -1,4 +1,4 @@
-package model;
+package example.model;
 
 public class Approval {
 
@@ -8,7 +8,7 @@ public class Approval {
         return id;
     }
 
-    public String isStatus() {
-        return "isStatusCalled";
+    public boolean isStatus() {
+        return true;
     }
 }

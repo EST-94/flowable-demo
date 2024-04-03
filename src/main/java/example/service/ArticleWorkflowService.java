@@ -1,7 +1,8 @@
-package service;
+package example.service;
 
-import model.Approval;
-import model.Article;
+import example.model.Approval;
+import example.model.Article;
+import lombok.extern.slf4j.Slf4j;
 import org.flowable.task.api.Task;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ArticleWorkflowService {
     @Autowired
     private RuntimeService runtimeService;
@@ -27,6 +29,7 @@ public class ArticleWorkflowService {
         Map<String, Object> variables = new HashMap<>();
         variables.put("author", article.getAuthor());
         variables.put("url", article.getUrl());
+        log.info("#################### process start, 'articleReview' called");
         runtimeService.startProcessInstanceByKey("articleReview", variables);
     }
 
@@ -35,6 +38,7 @@ public class ArticleWorkflowService {
         List<Task> tasks = taskService.createTaskQuery()
                 .taskCandidateGroup(assignee)
                 .list();
+        log.info("############### tasks called, task : {}", tasks);
         return tasks.stream()
                 .map(task -> {
                     Map<String, Object> variables = taskService.getVariables(task.getId());

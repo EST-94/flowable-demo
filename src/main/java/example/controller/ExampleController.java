@@ -1,10 +1,11 @@
-package controller;
+package example.controller;
 
-import model.Approval;
-import model.Article;
+import io.swagger.v3.oas.annotations.Operation;
+import example.model.Approval;
+import example.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import service.ArticleWorkflowService;
+import example.service.ArticleWorkflowService;
 
 import java.util.List;
 
@@ -14,16 +15,19 @@ public class ExampleController {
         private ArticleWorkflowService service;
 
         @PostMapping("/submit")
+        @Operation(summary = "submit")
         public void submit(@RequestBody Article article) {
             service.startProcess(article);
         }
 
         @GetMapping("/tasks")
+        @Operation(summary = "getTasks")
         public List<Article> getTasks(@RequestParam String assignee) {
             return service.getTasks(assignee);
         }
 
         @PostMapping("/review")
+        @Operation(summary = "review")
         public void review(@RequestBody Approval approval) {
             service.submitReview(approval);
         }
